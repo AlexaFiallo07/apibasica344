@@ -1,0 +1,45 @@
+require('dotenv').config();
+const { MongoClient } = require('mongodb');
+
+const MONGO_URI = process.env.MONGOURI || 'mongodb://localhost:27017';
+const DB_NAME = process.env.DB_NAME || 'ejercicios';
+
+const productos = [
+    { consecutivo: 1, nombre: 'Camiseta básica algodón', precio: 331360 },
+    { consecutivo: 2, nombre: 'Camiseta polo manga corta', precio: 309593 },
+    { consecutivo: 3, nombre: 'Camisa formal manga larga', precio: 311300 },
+    { consecutivo: 4, nombre: 'Camisa oxford casual', precio: 135316 },
+    { consecutivo: 5, nombre: 'Pantalón jean clásico', precio: 211350 },
+    { consecutivo: 6, nombre: 'Pantalón chino slim fit', precio: 292722 },
+    { consecutivo: 7, nombre: 'Pantalón de vestir', precio: 288396 },
+    { consecutivo: 8, nombre: 'Short deportivo', precio: 330436 },
+    { consecutivo: 9, nombre: 'Bermuda de lino', precio: 92165 },
+    { consecutivo: 10, nombre: 'Chaqueta denim', precio: 51664 },
+    { consecutivo: 11, nombre: 'Chaqueta bomber', precio: 128899 },
+    { consecutivo: 12, nombre: 'Suéter tejido cuello V', precio: 74649 },
+    { consecutivo: 13, nombre: 'Hoodie con capucha', precio: 344091 },
+    { consecutivo: 14, nombre: 'Chaleco acolchado', precio: 29446 },
+    { consecutivo: 15, nombre: 'Vestido casual verano', precio: 172656 },
+    { consecutivo: 16, nombre: 'Vestido de noche elegante', precio: 216967 },
+    { consecutivo: 17, nombre: 'Falda plisada midi', precio: 45327 },
+    { consecutivo: 18, nombre: 'Blusa seda estampada', precio: 210861 },
+    { consecutivo: 19, nombre: 'Overol denim', precio: 323771 },
+    { consecutivo: 20, nombre: 'Traje de baño una pieza', precio: 217155 }
+];
+
+async function run() {
+  const client = new MongoClient(MONGO_URI);
+  try {
+    await client.connect();
+    const db = client.db(DB_NAME);
+    await db.collection('productos').deleteMany({});
+    await db.collection('productos').insertMany(productos);
+    console.log('Productos insertados (driver)');
+  } catch (err) {
+    console.error('Error seed driver:', err.message);
+  } finally {
+    await client.close();
+  }
+}
+
+run();
