@@ -1,5 +1,12 @@
 const Cliente = require('../models/cliente.model');
 
+exports.home = async (req, res) =>{
+  res.render('pages/index');
+}
+
+exports.formulario = async (req, res) =>{
+  res.render('pages/registrarcliente');
+}
 exports.consultar = async (req, res) => {
   try {
     const clientes = await Cliente.find();

@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
-var conexion = "";
-try {
-  const URI = process.env.MONGOURI;
-	const URI = 'mongodb+srv://Alexfialloc:2RvkNysQr6JFTPoM@cluster0.gj3ljbb.mongodb.net/'
 
+const URI = process.env.MONGOURI ='mongodb+srv://Alexfialloc:2RvkNysQr6JFTPoM@cluster0.gj3ljbb.mongodb.net/'
+'mongodb+srv://Alexfialloc:2RvkNysQr6JFTPoM@cluster0.gj3ljbb.mongodb.net/'
+const connectDB = async () => {
+  try {
+    await mongoose.connect(URI);
+    console.log("MongoDB conectado");
+  } catch (err) {
+    console.log("Error de conexión a MongoDB:", err.message);
+  }
+};
 
-  conexion = mongoose.connect(URI);
-} catch (err) {
-  console.log(err);
-}
-
-
-module.exports = conexion;
-
+module.exports = connectDB;

@@ -6,9 +6,12 @@ const servicioController = require('./controllers/servicio.controller');
 const productoController = require('./controllers/producto.controller');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
+
+app.set('view engine', 'ejs');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended:false}));
 
 // Conectar a la base de datos
 connectDB().catch(err => {
@@ -16,7 +19,19 @@ connectDB().catch(err => {
   process.exit(1);
 });
 
+const Cliente = require('./models/cliente.model');
+
+app.get('/listadoclientes', (req,res)=>{
+   const listado=clienteController.listar
+   res.render('pages/index',
+       {clientes:listado}
+   )
+})
+
+
 // Rutas Clientes
+app.get('/', clienteController.home);
+app.get('/formulario',clienteController.formulario);
 app.get('/clientes', clienteController.consultar);
 app.get('/clientes/:id', clienteController.obtener);
 app.post('/clientes', clienteController.crear);
@@ -40,3 +55,6 @@ app.delete('/productos/:id', productoController.eliminar);
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });
+
+app.set('view engine', 'ejs');
+
