@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen Visual - Ejercicios de Apropiación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .tarjeta-ejercicio {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            page-break-inside: avoid;
+        }
+        .numero-ejercicio {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .titulo-ejercicio {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .dificultad {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .facil {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        .intermedio {
+            background-color: #fff9c4;
+            color: #f57f17;
+        }
+        .avanzado {
+            background-color: #ffccbc;
+            color: #d84315;
+        }
+        .seccion {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        .seccion h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .seccion p, .seccion ul {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-left: 15px;
+        }
+        .seccion li {
+            margin: 8px 0;
+        }
+        .flujo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+        .paso {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+        }
+        .paso-numero {
+            background-color: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 10px;
+        }
+        .paso-texto {
+            font-size: 12px;
+            color: #333;
+        }
+        .flecha {
+            font-size: 24px;
+            color: #667eea;
+            margin: 0 10px;
+        }
+        .codigo {
+            background-color: #282c34;
+            color: #61dafb;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        .concepto-clave {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .concepto-clave strong {
+            color: #1565c0;
+        }
+        .punto-clave {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .punto-clave strong {
+            color: #e65100;
+        }
+        .comparacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparacion-item {
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .comparacion-titulo {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .comparacion-contenido {
+            font-size: 12px;
+            color: #555;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .comparacion {
+                grid-template-columns: 1fr;
+            }
+            .flujo {
+                flex-direction: column;
+            }
+            .flecha {
+                transform: rotate(90deg);
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>📊 Resumen Visual de Conceptos</h1>
+            <p>Flujos y patrones clave de los ejercicios de apropiación</p>
+        </header>
+
+        <!-- EJERCICIO 1 -->
+        <div class="tarjeta-ejercicio">
+            <div class="numero-ejercicio">1</div>
+            <h2 class="titulo-ejercicio">Agenda de Contactos Básica</h2>
+            <span class="dificultad facil">⭐ Principiante</span>
+
+            <div class="seccion">
+                <h3>🎯 Objetivos Principales</h3>
+                <ul>
+                    <li>Seleccionar elementos del DOM con getElementById()</li>
+                    <li>Crear eventos con addEventListener()</li>
+                    <li>Crear elementos dinámicamente con createElement()</li>
+                    <li>Validar entrada del usuario</li>
+                </ul>
+            </div>
+
+            <div class="flujo">
+                <div class="paso">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-texto">Usuario hace clic</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-texto">Se validan datos</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-texto">Se crea elemento li</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">4</div>
+                    <div class="paso-texto">Se agrega a la lista</div>
+                </div>
+            </div>
+
+            <div class="codigo">
+botonAgregar.addEventListener('click', function() {
+    if (nombre.value === '') return;
+    
+    const nuevoItem = document.createElement('li');
+    const contenido = document.createTextNode(nombre.value);
+    
+    nuevoItem.appendChild(contenido);
+    lista.appendChild(nuevoItem);
+});</div>
+
+            <div class="concepto-clave">
+                <strong>💡 Concepto Clave:</strong> Los eventos son la puerta de entrada a la interactividad. addEventListener() permite "escuchar" acciones del usuario.
+            </div>
+        </div>
+
+        <!-- EJERCICIO 2 -->
+        <div class="tarjeta-ejercicio">
+            <div class="numero-ejercicio">2</div>
+            <h2 class="titulo-ejercicio">Manipulación de Clases CSS</h2>
+            <span class="dificultad intermedio">⭐⭐ Intermedio</span>
+
+            <div class="seccion">
+                <h3>🎯 Objetivos Principales</h3>
+                <ul>
+                    <li>Entender createAttribute() y setAttributeNode()</li>
+                    <li>Usar classList.toggle() para alternar clases</li>
+                    <li>Separar estilos (CSS) de lógica (JavaScript)</li>
+                    <li>Contar elementos con querySelectorAll()</li>
+                </ul>
+            </div>
+
+            <div class="comparacion">
+                <div class="comparacion-item">
+                    <div class="comparacion-titulo">createAttribute()</div>
+                    <div class="comparacion-contenido">Crea un atributo independientemente</div>
+                    <div class="codigo" style="margin: 10px 0; padding: 10px;">
+const attr = document.createAttribute('class');
+attr.value = 'contacto-item';
+                    </div>
+                </div>
+                <div class="comparacion-item">
+                    <div class="comparacion-titulo">classList.toggle()</div>
+                    <div class="comparacion-contenido">Alterna una clase (on/off)</div>
+                    <div class="codigo" style="margin: 10px 0; padding: 10px;">
+elemento.classList.toggle('destacado');
+// Si no la tiene, la agrega
+// Si la tiene, la quita
+                    </div>
+                </div>
+            </div>
+
+            <div class="punto-clave">
+                <strong>⚠️ Punto Clave:</strong> classList es mejor que manipular className directamente. Es más limpio y seguro.
+            </div>
+
+            <div class="flujo">
+                <div class="paso">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-texto">Crear elemento li con clase base</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-texto">Clic en "Destacar"</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-texto">classList.toggle() añade/quita clase</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">4</div>
+                    <div class="paso-texto">CSS aplica estilos automáticamente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 3 -->
+        <div class="tarjeta-ejercicio">
+            <div class="numero-ejercicio">3</div>
+            <h2 class="titulo-ejercicio">Tablas Dinámicas</h2>
+            <span class="dificultad intermedio">⭐⭐ Intermedio</span>
+
+            <div class="seccion">
+                <h3>🎯 Objetivos Principales</h3>
+                <ul>
+                    <li>Usar forEach() para iterar arrays</li>
+                    <li>Crear estructuras complejas (table, tr, td)</li>
+                    <li>Mantener referencias para eventos futuros</li>
+                    <li>Entender closures con referencia de "fila"</li>
+                </ul>
+            </div>
+
+            <div class="concepto-clave">
+                <strong>💡 Concepto Clave: forEach()</strong>
+                <p>forEach() ejecuta una función para cada elemento del array. Es ideal para crear múltiples elementos dinámicamente.</p>
+            </div>
+
+            <div class="codigo">
+const contactos = [
+    { nombre: "Juan Pérez", tel: "555-0101" },
+    { nombre: "María García", tel: "555-0102" }
+];
+
+contactos.forEach((contacto) => {
+    const fila = document.createElement('tr');
+    const celdaNombre = document.createElement('td');
+    celdaNombre.appendChild(
+        document.createTextNode(contacto.nombre)
+    );
+    fila.appendChild(celdaNombre);
+    tabla.appendChild(fila);
+});</code></div>
+
+            <div class="punto-clave">
+                <strong>⚠️ Punto Clave: Mantener referencias</strong>
+                <p>Guardar "fila" como variable permite que cuando hagas clic en el botón, se elimine solo esa fila. Esto es un closure.</p>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 3.a -->
+        <div class="tarjeta-ejercicio">
+            <div class="numero-ejercicio">3.a</div>
+            <h2 class="titulo-ejercicio">Búsqueda y Filtrado en Tiempo Real</h2>
+            <span class="dificultad intermedio">⭐⭐ Intermedio</span>
+
+            <div class="seccion">
+                <h3>🎯 Objetivos Principales</h3>
+                <ul>
+                    <li>Usar evento 'input' vs 'change'</li>
+                    <li>Implementar búsqueda de texto (includes)</li>
+                    <li>Manipular visibilidad (display: none)</li>
+                    <li>Filtrar múltiples elementos con querySelectorAll()</li>
+                </ul>
+            </div>
+
+            <div class="comparacion">
+                <div class="comparacion-item">
+                    <div class="comparacion-titulo">'input' (Recomendado para búsqueda)</div>
+                    <div class="comparacion-contenido">
+                        ✓ Se dispara cada letra escrita
+                        <br>✓ Búsqueda en tiempo real
+                        <br>✗ Más eventos disparados
+                    </div>
+                </div>
+                <div class="comparacion-item">
+                    <div class="comparacion-titulo">'change' (Después de terminar)</div>
+                    <div class="comparacion-contenido">
+                        ✓ Solo cuando pierdes el foco
+                        <br>✓ Menos eventos
+                        <br>✗ No es tiempo real
+                    </div>
+                </div>
+            </div>
+
+            <div class="flujo">
+                <div class="paso">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-texto">Usuario escribe</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-texto">Evento 'input' se dispara</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-texto">Iterar todas las filas</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">4</div>
+                    <div class="paso-texto">Mostrar/Ocultar según coincidencia</div>
+                </div>
+            </div>
+
+            <div class="codigo">
+buscador.addEventListener('input', function() {
+    const busqueda = buscador.value.toLowerCase();
+    const filas = document.querySelectorAll('tr');
+    
+    filas.forEach(fila => {
+        const nombre = fila.querySelector('td').innerText.toLowerCase();
+        
+        if (nombre.includes(busqueda)) {
+            fila.style.display = ""; // Muestra
+        } else {
+            fila.style.display = "none"; // Oculta
+        }
+    });
+});</code></div>
+
+            <div class="punto-clave">
+                <strong>🎯 Ventaja de display: "none"</strong>
+                <p>No elimina los elementos, solo los oculta. Los datos siguen en el DOM, así que puedes mostrarlos nuevamente.</p>
+            </div>
+        </div>
+
+        <!-- EJERCICIO PROPUESTO -->
+        <div class="tarjeta-ejercicio">
+            <div class="numero-ejercicio">★</div>
+            <h2 class="titulo-ejercicio">Tienda Online - FakeStore API</h2>
+            <span class="dificultad avanzado">⭐⭐⭐ Avanzado</span>
+
+            <div class="seccion">
+                <h3>🎯 Objetivos Principales</h3>
+                <ul>
+                    <li>Usar Fetch API para traer datos remotos</li>
+                    <li>Entender async/await</li>
+                    <li>Gestionar estado (carrito)</li>
+                    <li>Crear interfaces visuales complejas</li>
+                    <li>Manejar errores de red</li>
+                </ul>
+            </div>
+
+            <div class="concepto-clave">
+                <strong>💡 Concepto Clave: Fetch y async/await</strong>
+                <p>Fetch permite traer datos de servidores remotos. async/await hace que el código asincrónico sea más legible.</p>
+            </div>
+
+            <div class="codigo">
+async function cargarProductos() {
+    try {
+        const respuesta = await fetch(
+            'https://fakestoreapi.com/products'
+        );
+        const datos = await respuesta.json();
+        
+        datos.forEach(producto => {
+            // Crear tarjeta de producto
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}</code></div>
+
+            <div class="flujo">
+                <div class="paso">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-texto">Clic en "Cargar"</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-texto">Fetch traer datos</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-texto">forEach crea tarjetas</div>
+                </div>
+                <div class="flecha">→</div>
+                <div class="paso">
+                    <div class="paso-numero">4</div>
+                    <div class="paso-texto">Carrito recibe items</div>
+                </div>
+            </div>
+
+            <div class="punto-clave">
+                <strong>⚠️ Punto Clave: Gestión de Estado</strong>
+                <p>El array "carrito" mantiene los productos agregados. Sin él, cada vez que cargas la página perderías los items.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="concepto-clave">
+                    <strong>Nuevos Conceptos:</strong>
+                    <ul style="margin-left: 15px; margin-top: 10px;">
+                        <li>Fetch API</li>
+                        <li>async/await</li>
+                        <li>.json()</li>
+                        <li>try/catch</li>
+                        <li>Estado global</li>
+                    </ul>
+                </div>
+                <div class="concepto-clave">
+                    <strong>Paso Siguiente:</strong>
+                    <ul style="margin-left: 15px; margin-top: 10px;">
+                        <li>localStorage para persistencia</li>
+                        <li>Validación del carrito</li>
+                        <li>Proceso de checkout</li>
+                        <li>Categorías dinámicas</li>
+                        <li>Ordenamiento</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMEN COMPARATIVO -->
+        <div class="tarjeta-ejercicio">
+            <h2 class="titulo-ejercicio">📊 Comparativa de Ejercicios</h2>
+
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <thead>
+                    <tr style="background-color: #667eea; color: white;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Ejercicio</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Conceptos Clave</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Dificultad</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Tiempo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>Ejercicio 1</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">getElementById, createElement, addEventListener</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">⭐</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">45 min</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>Ejercicio 2</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">createAttribute, classList.toggle, querySelectorAll</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">⭐⭐</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">60 min</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>Ejercicio 3</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">forEach, crear tablas, closures</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">⭐⭐</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">75 min</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>Ejercicio 3.a</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">Evento input, includes, display:none</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">⭐⭐</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">90 min</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>Propuesto</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">Fetch, async/await, APIs, estado</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">⭐⭐⭐</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">120 min</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PROGRESIÓN DE COMPLEJIDAD -->
+        <div class="tarjeta-ejercicio">
+            <h2 class="titulo-ejercicio">📈 Progresión de Complejidad</h2>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 30px;">
+                    <strong style="color: #667eea;">Ejercicio 1: Fundamentos</strong>
+                    <div style="margin-top: 10px; background: linear-gradient(to right, #667eea 20%, #f0f0f0 20%); height: 30px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; color: white; font-weight: bold;">
+                        20%
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <strong style="color: #667eea;">Ejercicio 2: Intermedio Bajo</strong>
+                    <div style="margin-top: 10px; background: linear-gradient(to right, #667eea 40%, #f0f0f0 40%); height: 30px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; color: white; font-weight: bold;">
+                        40%
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <strong style="color: #667eea;">Ejercicio 3: Intermedio</strong>
+                    <div style="margin-top: 10px; background: linear-gradient(to right, #667eea 55%, #f0f0f0 55%); height: 30px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; color: white; font-weight: bold;">
+                        55%
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <strong style="color: #667eea;">Ejercicio 3.a: Intermedio Alto</strong>
+                    <div style="margin-top: 10px; background: linear-gradient(to right, #667eea 70%, #f0f0f0 70%); height: 30px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; color: white; font-weight: bold;">
+                        70%
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <strong style="color: #667eea;">Propuesto: Avanzado</strong>
+                    <div style="margin-top: 10px; background: linear-gradient(to right, #667eea 90%, #f0f0f0 10%); height: 30px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; color: white; font-weight: bold;">
+                        90%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

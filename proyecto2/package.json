@@ -1,0 +1,22 @@
+{
+  "name": "proyecto2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calculadora.js",
+  "scripts": {
+    "start": "node calculadora.js",
+    "dev": "nodemon calculadora.js",
+    "test": "echo 'No hay tests todavía',",
+    "build": "echo 'Construyendo...'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

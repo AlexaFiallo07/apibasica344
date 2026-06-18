@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 - Gestor de Contactos Pro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        #contenedor {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            padding: 12px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        table button {
+            background-color: #f44336;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        table button:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <h1>Gestor de Contactos Pro</h1>
+        <button id="btnCargar">Cargar Tabla de Contactos</button>
+        <div id="espacioTabla"></div> 
+    </div>
+
+    <script>
+        // Nuestro arreglo de datos inicial
+        const contactos = [
+            { nombre: "Juan Pérez", tel: "555-0101" },
+            { nombre: "María García", tel: "555-0102" },
+            { nombre: "Carlos Ruiz", tel: "555-0103" },
+            { nombre: "Ana López", tel: "555-0104" },
+            { nombre: "Luis Sosa", tel: "555-0105" },
+            { nombre: "Elena Sanz", tel: "555-0106" },
+            { nombre: "Pedro Marmol", tel: "555-0107" },
+            { nombre: "Sofía Castro", tel: "555-0108" },
+            { nombre: "Diego Torres", tel: "555-0109" },
+            { nombre: "Laura Vila", tel: "555-0110" }
+        ];
+
+        const btnCargar = document.getElementById('btnCargar');
+        const espacioTabla = document.getElementById('espacioTabla');
+
+        btnCargar.addEventListener('click', function() {
+            // 1. CREACIÓN: Creamos la tabla y su encabezado
+            const tabla = document.createElement('table');
+            tabla.border = "1"; // Un poco de estilo básico
+            
+            const encabezado = document.createElement('thead');
+            encabezado.innerHTML = `
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Acción</th>
+                </tr>
+            `;
+            tabla.appendChild(encabezado);
+
+            const cuerpo = document.createElement('tbody');
+
+            // 2. RECORRIDO: Usamos forEach para iterar el arreglo
+            contactos.forEach((contacto) => {
+                // Creamos la fila (tr)
+                const fila = document.createElement('tr');
+
+                // Celda Nombre
+                const celdaNombre = document.createElement('td');
+                celdaNombre.appendChild(document.createTextNode(contacto.nombre));
+
+                // Celda Teléfono
+                const celdaTel = document.createElement('td');
+                celdaTel.appendChild(document.createTextNode(contacto.tel));
+
+                // Celda Botón Eliminar
+                const celdaAccion = document.createElement('td');
+                const btnEliminar = document.createElement('button');
+                btnEliminar.innerText = "Eliminar";
+                
+                // Evento para borrar la fila actual
+                btnEliminar.addEventListener('click', () => {
+                    fila.remove();
+                });
+
+                celdaAccion.appendChild(btnEliminar);
+
+                // Ensamblamos la fila
+                fila.appendChild(celdaNombre);
+                fila.appendChild(celdaTel);
+                fila.appendChild(celdaAccion);
+
+                // Agregamos la fila al cuerpo de la tabla
+                cuerpo.appendChild(fila);
+            });
+
+            // 3. INSERCIÓN FINAL: Agregamos el cuerpo a la tabla y la tabla al div
+            tabla.appendChild(cuerpo);
+            espacioTabla.appendChild(tabla);
+            
+            // Desactivamos el botón para no duplicar la tabla
+            btnCargar.disabled = true;
+        });
+
+        // ANÁLISIS DEL EJERCICIO:
+        // ======================
+        // Este ejercicio demuestra:
+        // 1. Uso de arrays de objetos como fuente de datos
+        // 2. El método forEach() para iterar sobre datos
+        // 3. Creación dinámica de tablas HTML (thead, tbody, tr, td)
+        // 4. Encadenamiento de appendChild() para construir la estructura
+        // 5. Asociación de eventos a elementos dinámicamente creados
+        // 6. La importancia de mantener referencias a elementos (como "fila")
+        //    para poder manipularlos después (remover, modificar, etc)
+        //
+        // FLUJO DE CREACIÓN DE FILAS:
+        // - Para cada contacto en el arreglo:
+        //   1. Crear elemento tr (fila)
+        //   2. Crear elementos td (celdas) para nombre, teléfono y acción
+        //   3. Crear un botón dentro de la celda de acción
+        //   4. Asociar el evento click al botón
+        //   5. Agregar las celdas a la fila
+        //   6. Agregar la fila al cuerpo de la tabla
+        // - Finalmente agregar todo al documento
+
+    </script>
+</body>
+</html>
