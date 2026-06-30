@@ -1,4 +1,5 @@
 require('dotenv').config();
+console.log("Variables de entorno:", process.env);
 const express = require('express');
 const connectDB = require('./config/connectiondb');
 const clienteController = require('./controllers/cliente.controller');
