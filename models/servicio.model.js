@@ -9,7 +9,9 @@ const servicioSchema = new mongoose.Schema({
     type: String,
     enum: ['corte', 'tintura', 'peinado', 'tratamiento', 'barberia', 'otros'],
     required: true
-  }
+  },
+  activo: { type: Boolean, default: true },
+  imagen: { type: String }
 });
 
 module.exports = mongoose.model('Servicio', servicioSchema);
