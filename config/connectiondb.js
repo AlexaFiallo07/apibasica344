@@ -1,14 +1,24 @@
 const mongoose = require("mongoose");
 
-const URI = process.env.MONGODB_URI;
+const URI = process.env.MONGO_URI || process.env.MONGODB_URI;
+
 const connectDB = async () => {
+  if (!URI) {
+    throw new Error(
+      "Falta la variable de entorno MONGO_URI (o MONGODB_URI) para conectar a MongoDB"
+    );
+  }
+
   try {
     await mongoose.connect(URI);
     console.log("MongoDB conectado");
   } catch (err) {
-    console.log("Error de conexión a MongoDB:", err.message);
+    console.error("Error de conexión a MongoDB:", err.message);
+    // Propagar el error para que quien invoque decida cómo reaccionar
+    // (por ejemplo, terminar el proceso) en lugar de continuar en un
+    // estado inconsistente sin base de datos.
+    throw err;
   }
 };
 
-connectDB();
 module.exports = connectDB;

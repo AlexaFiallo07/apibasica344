@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log("Variables de entorno:", process.env);
 const express = require('express');
 const connectDB = require('./config/connectiondb');
 const clienteController = require('./controllers/cliente.controller');
@@ -44,7 +43,34 @@ app.post('/productos', productoController.crear);
 app.put('/productos/:id', productoController.actualizar);
 app.delete('/productos/:id', productoController.eliminar);
 
+// Manejador de rutas no encontradas (404)
+app.use((req, res) => {
+  res.status(404).json({ error: `Ruta no encontrada: ${req.method} ${req.originalUrl}` });
+});
+
+// Manejador de errores centralizado: captura errores propagados desde las rutas
+// (incluidos los lanzados en middlewares) para que no queden sin respuesta.
+app.use((err, req, res, next) => {
+  console.error('Error no controlado en una petición:', err);
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
+});
+
+// Evitar que rechazos o excepciones no controladas terminen el proceso de forma
+// silenciosa: los registramos explícitamente antes de salir.
+process.on('unhandledRejection', (reason) => {
+  console.error('Promesa rechazada sin manejar:', reason);
+  process.exit(1);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Excepción no capturada:', err);
+  process.exit(1);
 });
 
