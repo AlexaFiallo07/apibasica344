@@ -1,4 +1,11 @@
 const Cliente = require('../models/cliente.model');
+const createCrudController = require('./crud.controller');
+
+const crud = createCrudController(Cliente, 'Cliente');
+
+exports.obtener = crud.obtener;
+exports.actualizar = crud.actualizar;
+exports.eliminar = crud.eliminar;
 
 exports.home = async (req, res) => {
   res.redirect('/listadoclientes');
@@ -10,15 +17,6 @@ exports.formulario = async (req, res) => {
 
 exports.listar = async () => Cliente.find().sort({ nombre: 1 });
 
-exports.listado = async (req, res) => {
-  try {
-    const clientes = await exports.listar();
-    res.render('pages/index', { clientes });
-  } catch (error) {
-    res.status(500).send(`Error consultando clientes: ${error.message}`);
-  }
-};
-
 exports.consultar = async (req, res) => {
   try {
     const clientes = await exports.listar();
@@ -28,13 +26,12 @@ exports.consultar = async (req, res) => {
   }
 };
 
-exports.obtener = async (req, res) => {
+exports.listado = async (req, res) => {
   try {
-    const cliente = await Cliente.findById(req.params.id);
-    if (!cliente) return res.status(404).json({ mensaje: 'Cliente no encontrado' });
-    res.json(cliente);
+    const clientes = await exports.listar();
+    res.render('pages/index', { clientes });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).send(`Error consultando clientes: ${error.message}`);
   }
 };
 
@@ -51,25 +48,5 @@ exports.crear = async (req, res) => {
       return res.status(400).send(`Error creando cliente: ${error.message}`);
     }
     res.status(400).json({ error: error.message });
-  }
-};
-
-exports.actualizar = async (req, res) => {
-  try {
-    const actualizado = await Cliente.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!actualizado) return res.status(404).json({ mensaje: 'Cliente no encontrado' });
-    res.json(actualizado);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-exports.eliminar = async (req, res) => {
-  try {
-    const eliminado = await Cliente.findByIdAndDelete(req.params.id);
-    if (!eliminado) return res.status(404).json({ mensaje: 'Cliente no encontrado' });
-    res.json({ mensaje: 'Cliente eliminado' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
   }
 };
