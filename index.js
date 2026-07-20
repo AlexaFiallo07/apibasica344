@@ -14,11 +14,18 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Conectar a la base de datos
-connectDB().catch(err => {
-  console.error('No se pudo conectar a la base de datos, saliendo...', err.message);
-  process.exit(1);
-});
+// Conectar a la base de datos (antes de servir)
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Servidor iniciado en http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('No se pudo conectar a la base de datos, saliendo...', err.message);
+    process.exit(1);
+  });
+
 
 // Rutas Clientes
 app.get('/', clienteController.home);
@@ -44,7 +51,5 @@ app.post('/productos', productoController.crear);
 app.put('/productos/:id', productoController.actualizar);
 app.delete('/productos/:id', productoController.eliminar);
 
-app.listen(PORT, () => {
-  console.log(`Servidor iniciado en http://localhost:${PORT}`);
-});
+
 
