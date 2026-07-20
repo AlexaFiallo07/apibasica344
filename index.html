@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="contenedor">
+        </div>
+        <header>
+            <h1>🛒 Tienda Online</h1>
+            <p>Carga dinámica de productos con creación de tarjetas</p>
+        </header>
+
+        <div class="controles">
+            <input type="text" id="buscador" placeholder="Buscar productos por nombre...">
+            <button id="btnCargar">Cargar Productos</button>
+            <span class="estado"><strong id="contadorProductos">0</strong> productos cargados</span>
+        </div>
+
+        <div id="mensajeError" class="error oculto"></div>
+
+        <div id="contenedorProductos" class="productos-contenedor"></div>
+
+        <div class="carrito-resumen">
+            <h3>🛍️ Tu Carrito</h3>
+            <div class="carrito-items" id="carritoItems"></div>
+            <div class="carrito-total">
+                Total: $<span id="carritoTotal">0.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
