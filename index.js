@@ -21,8 +21,7 @@ app.use(methodOverride("_method"));
 app.use(express.json());
 
 app.set('view engine', 'ejs');
-app.use('/api/v1',enrutamiento);
-
+app.use('/', enrutamiento);
 
 // Conexión a MongoDB
 conectarDB();

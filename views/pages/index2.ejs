@@ -60,7 +60,7 @@
                 <div class="modal" id="actualizar">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form id="formActualizar" method="POST" action="/api/v1/clientes/ID">
+                            <form id="formActualizar" method="POST" action="/clientes/ID">
                                 <input type="hidden" name="_method" value="PUT">
 
                                 <div class="modal-header">
@@ -130,7 +130,7 @@
 
         }
         function actualizar(id, nombre, email, telefono) {
-            document.getElementById("formActualizar").action = `/api/v1/clientes/${id}`;
+            document.getElementById("formActualizar").action = `/clientes/${id}`;
 
             document.getElementById("nombreA").value = nombre;
             document.getElementById("emailA").value = email;

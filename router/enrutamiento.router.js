@@ -5,7 +5,7 @@ const productoController = require('../controllers/producto.controller')
 const servicioController = require('../controllers/servicio.controller')
 const router = express.Router();
 
-
+router.get('/listadoclientes', clienteController.listado); // <-- AÑADE ESTA LÍNEA
 router.get('/formulario', clienteController.formulario)
 router.get('/clientes', clienteController.consultar);
 router.get('/clientes/:id', clienteController.consultarId);
