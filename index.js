@@ -1,55 +1,68 @@
 require('dotenv').config();
-console.log("Variables de entorno:", process.env);
+
 const express = require('express');
-const connectDB = require('./config/connectiondb');
+const conectarDB = require('./config/connectiondb');
+const methodOverride = require("method-override");
+
+
+
+const PORT = 5000;
+
 const clienteController = require('./controllers/cliente.controller');
 const servicioController = require('./controllers/servicio.controller');
 const productoController = require('./controllers/producto.controller');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+
+const enrutamiento = require('./router/enrutamiento.router')
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express.json());
 
 app.set('view engine', 'ejs');
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// Conectar a la base de datos (antes de servir)
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Servidor iniciado en http://localhost:${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('No se pudo conectar a la base de datos, saliendo...', err.message);
-    process.exit(1);
-  });
+app.use('/api/v1',enrutamiento);
 
 
-// Rutas Clientes
-app.get('/', clienteController.home);
-app.get('/formulario', clienteController.formulario);
-app.get('/listadoclientes', clienteController.listado);
-app.get('/clientes', clienteController.consultar);
-app.get('/clientes/:id', clienteController.obtener);
-app.post('/clientes', clienteController.crear);
-app.put('/clientes/:id', clienteController.actualizar);
-app.delete('/clientes/:id', clienteController.eliminar);
+// Conexión a MongoDB
+conectarDB();
 
-// Rutas Servicios
-app.get('/servicios', servicioController.consultar);
-app.get('/servicios/:id', servicioController.obtener);
-app.post('/servicios', servicioController.crear);
-app.put('/servicios/:id', servicioController.actualizar);
-app.delete('/servicios/:id', servicioController.eliminar);
+app.get('/cliente', function(req,res){
+   fetch('https://apibasica344-ok7h.onrender.com')
+   .then(response => response.json())
+   .then(data => {
+       res.render('pages/index2',
+           {clientes:data}
+       )
+   });
+});
 
-// Rutas Productos
-app.get('/productos', productoController.consultar);
-app.get('/productos/:id', productoController.obtener);
-app.post('/productos', productoController.crear);
-app.put('/productos/:id', productoController.actualizar);
-app.delete('/productos/:id', productoController.eliminar);
+app.get('/productos', function(req,res){
+   fetch('https://apibasica344-ok7h.onrender.com')
+   .then(response => response.json())
+   .then(data => {
+       res.render('pages/indexP',
+           {clientes:data}
+       )
+   });
+});
+
+app.get('/servicios', function(req,res){
+   fetch('https://apibasica344-ok7h.onrender.com')
+   .then(response => response.json())
+   .then(data => {
+       res.render('pages/indexS',
+           {clientes:data}
+       )
+   });
+});
+
+app.get('/', clienteController.home)
 
 
 
+
+
+app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+});
