@@ -1,122 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <%- include('../partials/head'); %>
+   <%- include('../partials/head'); %>
 </head>
 <body class="container">
 
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
 
-    <main>
+   <header>
+       <%- include('../partials/header'); %>
+   </header>
+
+
+   <main>
        <div class="jumbotron">
-           <h1>Clientes</h1>
-           <table id="tablita" class="table table-success table-hover" style="border:2px solid black;">
-               <thead>
-                <tr>
-                   <th>Nombre</th>
-                   <th>Email</th>
-                   <th>Teléfono</th>
-                   <th>Acciones</th>
-                </tr>
-               </thead>
-               <tbody>
-                   <% const listadoClientes = typeof clientes !== 'undefined' ? clientes : []; %>
-                   <% if (listadoClientes.length === 0) { %>
-                   <tr>
-                       <td colspan="4" class="text-center">No hay clientes registrados.</td>
-                   </tr>
-                   <% } %>
-                   <% listadoClientes.forEach(function(cliente, index) { %>
-                   <tr>
-                       <td><%= cliente.nombre %></td>
-                       <td><%= cliente.email %></td>
-                       <td><%= cliente.telefono %></td>
-                       <td>
-                           <!-- Botón Ver -->
-                           <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#clienteModal<%= index %>">Ver detalles</button>
-                           <div class="modal fade" id="clienteModal<%= index %>">
-                               <div class="modal-dialog">
-                                   <div class="modal-content">
-                                       <div class="modal-header">
-                                           <h4 class="modal-title text-dark">Detalles del cliente</h4>
-                                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                       </div>
-                                       <div class="modal-body text-dark">
-                                           <p><strong>Nombre:</strong> <%= cliente.nombre %></p>
-                                           <p><strong>Email:</strong> <%= cliente.email %></p>
-                                           <p><strong>Teléfono:</strong> <%= cliente.telefono %></p>
-                                       </div>
-                                       <div class="modal-footer">
-                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-
-                           <!-- Botón Editar -->
-                           <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= index %>">Editar</button>
-                           <div class="modal fade" id="editarModal<%= index %>">
-                               <div class="modal-dialog">
-                                   <div class="modal-content">
-                                       <div class="modal-header">
-                                           <h5 class="modal-title text-dark">Editar cliente</h5>
-                                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                       </div>
-                                       <div class="modal-body text-dark">
-                                           <form action="/clientes/<%= cliente._id %>/editar" method="POST">
-                                               <div class="mb-3">
-                                                   <label class="form-label">Nombre</label>
-                                                   <input type="text" name="nombre" class="form-control" value="<%= cliente.nombre %>">
-                                               </div>
-                                               <div class="mb-3">
-                                                   <label class="form-label">Email</label>
-                                                   <input type="email" name="email" class="form-control" value="<%= cliente.email %>">
-                                               </div>
-                                               <div class="mb-3">
-                                                   <label class="form-label">Teléfono</label>
-                                                   <input type="text" name="telefono" class="form-control" value="<%= cliente.telefono %>">
-                                               </div>
-                                               <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                                           </form>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-
-                           <!-- Botón Eliminar -->
-                           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal<%= index %>">Eliminar</button>
-                           <div class="modal fade" id="eliminarModal<%= index %>">
-                               <div class="modal-dialog">
-                                   <div class="modal-content">
-                                       <div class="modal-header">
-                                           <h5 class="modal-title text-danger">Eliminar cliente</h5>
-                                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                       </div>
-                                       <div class="modal-body text-dark">
-                                           <p>¿Estás segura de que deseas eliminar a <strong><%= cliente.nombre %></strong>?</p>
-                                       </div>
-                                       <div class="modal-footer">
-                                           <form action="/clientes/<%= cliente._id %>/eliminar" method="POST">
-                                               <button type="submit" class="btn btn-danger">Eliminar</button>
-                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                           </form>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </td>
-                   </tr>
-                   <% }); %>
-               </tbody>
-           </table>
+         <h1>Bienvenidos</h1>
        </div>
    </main>
-
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
-
+   <footer>
+       <%- include('../partials/footer'); %>
+   </footer>
 </body>
 </html>

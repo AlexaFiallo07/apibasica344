@@ -26,38 +26,83 @@
                        <td><%=cliente.email%></td>
                        <td><%=cliente.telefono%></td>
                        <td>
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">Ver detalles</button>
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalV" onclick="modalV('<%=cliente.nombre%>', '<%=cliente.email%>', '<%=cliente.telefono%>')">Ver detalles</button>
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" style="color: black;">Modal Heading</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#actualizar" onclick="actualizar('<%=cliente._id%>', '<%=cliente.nombre%>', '<%=cliente.email%>', '<%=cliente.telefono%>')">Editar</button>
 
-                                    <!-- Modal body -->
-                                    <div class="modal-body" style="color: black;">
-                                       <br><%=cliente.nombre%><br>
-                                        <%=cliente.email%><br>
-                                        <%=cliente.telefono%><br>
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn btn-warning">Editar</button>
+                        
                         <button type="button" class="btn btn-danger">Eliminar</button>
                        </td>
                    </tr>
-               <% }); %>
+               <% }) %>
+               <div class="modal" id="modalV">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="color: black;">Detalles Cliente</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body" style="color: black;">
+                                <p><strong>Nombre:</strong><span id="nombreV"></span></p>
+                                <p><strong>Email:</strong><span id="emailV"></span></p>
+                                <p><strong>Telefono:</strong><span id="telefonoV"></span></p>
+                            </div>
+                        
+                                    <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="actualizar">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="formActualizar" method="POST" action="/api/v1/clientes/ID">
+                                <input type="hidden" name="_method" value="PUT">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-dark">Actualizar</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body text-dark">
+
+                                    <div class="mb-3">
+                                        <label for="nombreA">Nombre</label>
+                                        <input type="text" class="form-control" id="nombreA" name="nombre">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="emailA">Email</label>
+                                        <input type="email" class="form-control" id="emailA" name="email">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="telefonoA">Teléfono</label>
+                                        <input type="text" class="form-control" id="telefonoA" name="telefono">
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">
+                                        Guardar
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
                </tbody>
 
 
@@ -75,6 +120,23 @@
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
+
+    <script>
+        function modalV(nombre, email, telefono){
+            document.getElementById('modalV').style.display = 'block';
+            document.getElementById('nombreV').textContent = nombre;
+            document.getElementById('emailV').textContent = email;
+            document.getElementById('telefonoV').textContent = telefono;
+
+        }
+        function actualizar(id, nombre, email, telefono) {
+            document.getElementById("formActualizar").action = `/api/v1/clientes/${id}`;
+
+            document.getElementById("nombreA").value = nombre;
+            document.getElementById("emailA").value = email;
+            document.getElementById("telefonoA").value = telefono;
+        }
+    </script>
 
 </body>
 </html>
