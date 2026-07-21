@@ -1,5 +1,14 @@
 const Producto = require('../models/producto.model');
 
+// Función para mostrar el formulario (requerida por el router como formularioP)
+exports.formularioP = async (req, res) => {
+  try {
+    res.render('pages/registrarproducto'); // Ajusta la ruta de tu vista EJS si es distinta
+  } catch (error) {
+    res.status(500).send(`Error al cargar formulario: ${error.message}`);
+  }
+};
+
 exports.consultar = async (req, res) => {
   try {
     const productos = await Producto.find();
@@ -9,7 +18,8 @@ exports.consultar = async (req, res) => {
   }
 };
 
-exports.obtener = async (req, res) => {
+// Renombrado de 'obtener' a 'consultarId' para coincidir con el router
+exports.consultarId = async (req, res) => {
   try {
     const producto = await Producto.findById(req.params.id);
     if (!producto) return res.status(404).json({ mensaje: 'Producto no encontrado' });
@@ -19,7 +29,8 @@ exports.obtener = async (req, res) => {
   }
 };
 
-exports.crear = async (req, res) => {
+// Renombrado de 'crear' a 'registrar' para coincidir con el router
+exports.registrar = async (req, res) => {
   try {
     const nuevo = new Producto(req.body);
     const guardado = await nuevo.save();

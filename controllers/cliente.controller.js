@@ -28,7 +28,8 @@ exports.consultar = async (req, res) => {
   }
 };
 
-exports.obtener = async (req, res) => {
+// Renombrado de 'obtener' a 'consultarId' para que coincida con el router
+exports.consultarId = async (req, res) => {
   try {
     const cliente = await Cliente.findById(req.params.id);
     if (!cliente) return res.status(404).json({ mensaje: 'Cliente no encontrado' });
@@ -38,7 +39,8 @@ exports.obtener = async (req, res) => {
   }
 };
 
-exports.crear = async (req, res) => {
+// Renombrado de 'crear' a 'registrar' para que coincida con el router
+exports.registrar = async (req, res) => {
   try {
     const nuevo = new Cliente(req.body);
     const guardado = await nuevo.save();
